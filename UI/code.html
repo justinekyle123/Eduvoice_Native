@@ -1,0 +1,408 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Sanctuary Community Feed</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400..900;1,8..60,400..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container": "#efeeea",
+                      "surface-bright": "#fbf9f5",
+                      "secondary-fixed": "#ffdea5",
+                      "secondary-fixed-dim": "#e9c176",
+                      "tertiary-fixed": "#c1e8fd",
+                      "surface-tint": "#4f5f7b",
+                      "primary": "#04162e",
+                      "background": "#fbf9f5",
+                      "inverse-on-surface": "#f2f0ed",
+                      "on-primary-container": "#8292b0",
+                      "primary-fixed-dim": "#b6c7e7",
+                      "on-tertiary-container": "#7297ab",
+                      "on-primary-fixed-variant": "#374762",
+                      "secondary": "#775a19",
+                      "inverse-primary": "#b6c7e7",
+                      "outline": "#75777e",
+                      "surface-variant": "#e4e2de",
+                      "on-error": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "surface-dim": "#dbdad6",
+                      "surface-container-highest": "#e4e2de",
+                      "surface-container-high": "#eae8e4",
+                      "primary-fixed": "#d5e3ff",
+                      "primary-container": "#1a2b44",
+                      "on-tertiary-fixed": "#001f2a",
+                      "inverse-surface": "#30312e",
+                      "surface": "#fbf9f5",
+                      "surface-container-low": "#f5f3ef",
+                      "tertiary": "#001923",
+                      "error-container": "#ffdad6",
+                      "on-tertiary-fixed-variant": "#254b5c",
+                      "on-surface-variant": "#44474d",
+                      "error": "#ba1a1a",
+                      "on-primary-fixed": "#091c34",
+                      "on-surface": "#1b1c1a",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary-fixed": "#261900",
+                      "secondary-container": "#fed488",
+                      "on-secondary-fixed-variant": "#5d4201",
+                      "tertiary-container": "#002f3f",
+                      "on-secondary": "#ffffff",
+                      "on-secondary-container": "#785a1a",
+                      "outline-variant": "#c5c6ce",
+                      "tertiary-fixed-dim": "#a6cce1",
+                      "on-background": "#1b1c1a",
+                      "on-primary": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-sm": "8px",
+                      "container-max": "1200px",
+                      "unit": "8px",
+                      "margin-desktop": "32px",
+                      "stack-md": "16px",
+                      "gutter": "24px",
+                      "stack-lg": "32px",
+                      "margin-mobile": "16px"
+              },
+              "fontFamily": {
+                      "caption": [
+                              "Open Sans"
+                      ],
+                      "headline-lg-mobile": [
+                              "\"Source Serif 4\""
+                      ],
+                      "body-md": [
+                              "Open Sans"
+                      ],
+                      "display": [
+                              "\"Source Serif 4\""
+                      ],
+                      "body-lg": [
+                              "Open Sans"
+                      ],
+                      "headline-md": [
+                              "\"Source Serif 4\""
+                      ],
+                      "headline-lg": [
+                              "\"Source Serif 4\""
+                      ],
+                      "label-md": [
+                              "Open Sans"
+                      ]
+              },
+              "fontSize": {
+                      "caption": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .ambient-shadow {
+            box-shadow: 0 8px 24px -4px rgba(4, 22, 46, 0.06), 0 4px 12px -2px rgba(4, 22, 46, 0.04);
+        }
+      </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col pb-[90px] md:pb-0">
+<!-- TopAppBar -->
+<header class="bg-background dark:bg-background docked full-width top-0 bg-background dark:bg-background flat no shadows flex justify-between items-center px-margin-mobile py-stack-sm w-full z-50 sticky md:hidden transition-transform duration-300">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden shrink-0 bg-surface-variant flex items-center justify-center">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A small, circular profile picture of an elderly, kind-looking woman with silver hair, softly lit against a muted background. She represents a typical sanctuary church member. The image uses soft, creamy tones and gentle lighting to fit the calm, classic cream-and-navy UI palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUKopsz3xib1o2Hu7QPyCSoCiyNoWzUBzW23DSgtfIg-Q-5j-3cizqy4J5Zn8Om6b6XwFJGWbUOpBi-znM2EjdG-QB_29CE6ykPRkcD639vJClYxvEoq6sz8n3FRDcvYwhvgiBOdqiJKZmoqKRaNr-vAFHrEwAcOxWbkdm8hyX6PfrL-7LO-rD7PF1gV9GEsTXWXqZovwcyOXp2VAp306ijEc-qQDE0jH40vhtL14rtpG0HBwngUIX">
+</div>
+<h1 class="font-display text-headline-lg-mobile text-primary dark:text-inverse-primary font-bold tracking-tight">Sanctuary</h1>
+</div>
+<button aria-label="Menu" class="w-10 h-10 flex items-center justify-center text-primary dark:text-inverse-primary hover:opacity-80 transition-opacity active:scale-95 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">menu</span>
+</button>
+</header>
+<!-- Desktop Navigation Shell (Hidden on Mobile) -->
+<nav class="hidden md:flex bg-surface-container-lowest border-r border-surface-variant w-64 h-screen fixed left-0 top-0 flex-col z-50">
+<div class="p-6">
+<h1 class="font-display text-headline-lg text-primary font-bold tracking-tight">Sanctuary</h1>
+</div>
+<ul class="flex-1 flex flex-col gap-2 px-4">
+<li class="">
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg bg-surface-container text-primary font-label-md font-bold" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">home_app_logo</span>
+                    Feed
+                </a>
+</li>
+<li class="">
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors font-label-md" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">prayer_times</span>
+                    Prayer
+                </a>
+</li>
+<li class="">
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors font-label-md" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">calendar_month</span>
+                    Events
+                </a>
+</li>
+<li class="">
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors font-label-md" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">edit_note</span>
+                    Notes
+                </a>
+</li>
+</ul>
+<div class="p-4 border-t border-surface-variant">
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors font-label-md" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">person</span>
+                Profile
+            </a>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-1 w-full max-w-container-max mx-auto md:pl-64 flex flex-col md:flex-row gap-6 p-margin-mobile md:p-margin-desktop mt-4 md:mt-0">
+<!-- Primary Feed Stream -->
+<div class="flex-1 flex flex-col max-w-[680px] mx-auto w-full gap-6"><div class="flex gap-4 overflow-x-auto pb-4 scrollbar-hide px-2">
+  <div class="flex flex-col items-center gap-1 shrink-0">
+    <div class="w-16 h-16 rounded-full p-[2px] border-2 border-secondary">
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUKopsz3xib1o2Hu7QPyCSoCiyNoWzUBzW23DSgtfIg-Q-5j-3cizqy4J5Zn8Om6b6XwFJGWbUOpBi-znM2EjdG-QB_29CE6ykPRkcD639vJClYxvEoq6sz8n3FRDcvYwhvgiBOdqiJKZmoqKRaNr-vAFHrEwAcOxWbkdm8hyX6PfrL-7LO-rD7PF1gV9GEsTXWXqZovwcyOXp2VAp306ijEc-qQDE0jH40vhtL14rtpG0HBwngUIX" class="w-full h-full rounded-full object-cover" alt="Your Story">
+    </div>
+    <span class="text-xs font-label-md text-on-surface-variant">Your Story</span>
+  </div>
+  <div class="flex flex-col items-center gap-1 shrink-0">
+    <div class="w-16 h-16 rounded-full p-[2px] border-2 border-secondary">
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCGQkxGUKtLTkLcoiUnKgNH66xpEm7hcMdK1M-eTtMJWvHNfkd3AtW8ER7ZmaSW4Nh4MsOCnBZZkTWmHEYvH3awczRCG01ejDqXwE75YkfWhz70B_5w6ioNBWu4dSDSZsD9k7_BxNAW77cM45Q0y6vZYNahqaT3kYjzu0aXfvR9QtLtoVCcpBJQX40zeemdpXZbhKnvtxLOcWNME7kF4t0uZlNfbjnOTL6XM8rE7fosXW3tUmA3J8g" class="w-full h-full rounded-full object-cover" alt="Sarah J.">
+    </div>
+    <span class="text-xs font-label-md text-on-surface-variant">Sarah J.</span>
+  </div>
+  <div class="flex flex-col items-center gap-1 shrink-0">
+    <div class="w-16 h-16 rounded-full p-[2px] border-2 border-secondary">
+      <div class="w-full h-full rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed font-bold">M</div>
+    </div>
+    <span class="text-xs font-label-md text-on-surface-variant">Marcus T.</span>
+  </div>
+  <div class="flex flex-col items-center gap-1 shrink-0">
+    <div class="w-16 h-16 rounded-full p-[2px] border-2 border-secondary">
+      <div class="w-full h-full rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed font-bold">D</div>
+    </div>
+    <span class="text-xs font-label-md text-on-surface-variant">David P.</span>
+  </div>
+</div>
+<!-- Scripture of the Day Card -->
+<article class="bg-surface-container-lowest rounded-[16px] ambient-shadow overflow-hidden group">
+<div class="relative h-64 md:h-72 w-full flex items-center justify-center p-8">
+<div class="absolute inset-0 z-0" data-alt="A tranquil, soft-focus landscape image of a calm lake at dawn, with gentle mist rising. The colors are muted, relying on soft blues, subtle creams, and deep navy shadows in the distant trees. It serves as a peaceful backdrop for religious text, matching a clean, calming UI aesthetic." style="background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuAj74ySYhWaUovYO0zDazZg-xj4b9zpJ0qQ70eH3wUIotdTTeSm1b02kdM3xcz4Y4SZUACMNNV--PHSJcqDn6UZv6dPtPPkJtVZ7rXMB4lf5xOYp8jcsVWe4loz6za3ZupVesIh1xK9p655V0LpMjUwcCEvC-StmoKCL0WzoDkFNK8KALBqFTIn9R-9ASOHwt67g1StKOJ6bx9Jb3hSiCau4XMPbR_Ye-ZG7jaxugMOhnw7zLrrZWt8&quot;);">
+<div class="absolute inset-0 bg-primary/40 backdrop-blur-[2px]"></div>
+</div>
+<div class="relative z-10 text-center flex flex-col items-center gap-4">
+<span class="text-secondary font-label-md uppercase tracking-wider bg-surface-container-lowest/90 px-3 py-1 rounded-full backdrop-blur-sm shadow-sm">Scripture of the Day</span>
+<blockquote class="font-display text-headline-lg-mobile md:text-headline-lg text-on-primary font-medium leading-relaxed max-w-md">
+                             "The Lord is my shepherd, I lack nothing. He makes me lie down in green pastures, he leads me beside quiet waters..."
+                         </blockquote>
+<cite class="font-body-md text-on-primary/90 mt-2 block">— Psalm 23:1-2</cite>
+</div>
+</div>
+<div class="p-4 bg-surface-container-lowest flex justify-between items-center border-t border-surface-variant/50">
+<p class="font-caption text-on-surface-variant">Shared with love by Pastor David</p>
+<div class="flex gap-2">
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">share</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Community Announcement Post -->
+<article class="bg-surface-container-lowest rounded-xl ambient-shadow overflow-hidden flex flex-col">
+  <div class="flex items-center justify-between p-4">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container shrink-0">
+        <img alt="Author Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCGQkxGUKtLTkLcoiUnKgNH66xpEm7hcMdK1M-eTtMJWvHNfkd3AtW8ER7ZmaSW4Nh4MsOCnBZZkTWmHEYvH3awczRCG01ejDqXwE75YkfWhz70B_5w6ioNBWu4dSDSZsD9k7_BxNAW77cM45Q0y6vZYNahqaT3kYjzu0aXfvR9QtLtoVCcpBJQX40zeemdpXZbhKnvtxLOcWNME7kF4t0uZlNfbjnOTL6XM8rE7fosXW3tUmA3J8g">
+      </div>
+      <div>
+        <h3 class="font-label-md text-primary font-bold">Sarah Jenkins</h3>
+        <p class="text-[10px] text-on-surface-variant uppercase tracking-wider">2 hours ago • Community Board</p>
+      </div>
+    </div>
+    <button class="text-on-surface-variant">
+      <span class="material-symbols-outlined">more_vert</span>
+    </button>
+  </div>
+  <div class="w-full">
+    <img alt="Community Potluck Gathering" class="w-full h-auto object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5XGt5B0zUpCkZBfmZgJ2KyOQJ0ef6QQPkAumqYkxtilQE_ZQmIMaMTpjTRyAix3mypSsCxd-eqstP3kTe0-BfCKWvgtj3NYaaAC4kZwcAHk74U7TFaTGPnPvL27lnuW3-5zFV5zxbXf2HpMpB-yEq7X7MP-wx6DiHbK1fT5LHs5D2HkS_z51GjBdt1UpHy7bYALCy26fPOJge1k7TahvIrs9NyqlbId9b2UX6YeFQBdLCQ0Tzkq_q">
+  </div>
+  <div class="p-4 flex flex-col gap-2">
+    <div class="flex items-center gap-4">
+      <button class="text-on-surface-variant hover:text-secondary transition-colors">
+        <span class="material-symbols-outlined text-[28px]">favorite</span>
+      </button>
+      <button class="text-on-surface-variant hover:text-primary transition-colors">
+        <span class="material-symbols-outlined text-[28px]">chat_bubble</span>
+      </button>
+      <button class="text-on-surface-variant hover:text-primary transition-colors">
+        <span class="material-symbols-outlined text-[28px]">send</span>
+      </button>
+      <button class="ml-auto text-on-surface-variant">
+        <span class="material-symbols-outlined text-[28px]">bookmark</span>
+      </button>
+    </div>
+    <p class="font-label-md text-primary font-bold">24 Amens</p>
+    <div class="prose prose-sm max-w-none text-on-surface">
+      <p class="font-body-md"><span class="font-bold mr-2">Annual Fall Potluck Fellowship</span>Join us this Sunday immediately following the second service for our Annual Fall Potluck! It's a wonderful time to connect...</p>
+    </div>
+    <button class="text-on-surface-variant text-xs font-label-md text-left mt-1">View all 5 comments</button>
+  </div>
+</article>
+<!-- Testimony Post -->
+<article class="bg-surface-container-lowest rounded-xl ambient-shadow overflow-hidden flex flex-col">
+  <div class="flex items-center justify-between p-4">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-full overflow-hidden bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed font-bold shrink-0">
+        M
+      </div>
+      <div>
+        <h3 class="font-label-md text-primary font-bold">Marcus T.</h3>
+        <p class="text-[10px] text-on-surface-variant uppercase tracking-wider">Yesterday • Testimony</p>
+      </div>
+    </div>
+    <button class="text-on-surface-variant">
+      <span class="material-symbols-outlined">more_vert</span>
+    </button>
+  </div>
+  <div class="px-4 pb-4 flex flex-col gap-2">
+    <div class="flex items-center gap-4 mb-2">
+      <button class="text-secondary">
+        <span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+      </button>
+      <button class="text-on-surface-variant hover:text-primary transition-colors">
+        <span class="material-symbols-outlined text-[28px]">chat_bubble</span>
+      </button>
+      <button class="text-on-surface-variant hover:text-primary transition-colors">
+        <span class="material-symbols-outlined text-[28px]">send</span>
+      </button>
+    </div>
+    <p class="font-label-md text-primary font-bold">89 Amens</p>
+    <div class="prose prose-sm max-w-none text-on-surface">
+      <p class="font-body-md italic text-primary/80">"I just wanted to take a moment to thank this community for the prayers over the past month. The transition to the new job was incredibly stressful..."</p>
+    </div>
+    <button class="text-on-surface-variant text-xs font-label-md text-left mt-1">View all 12 comments</button>
+  </div>
+</article>
+</div>
+<!-- Secondary Sidebar (Desktop Only) -->
+<aside class="hidden xl:flex w-80 flex-col gap-6">
+<div class="bg-surface-container-lowest rounded-[16px] ambient-shadow p-6">
+<h3 class="font-display text-headline-md text-primary mb-4 font-bold">Upcoming</h3>
+<ul class="flex flex-col gap-4">
+<li class="flex gap-3">
+<div class="w-12 h-12 rounded-lg bg-surface-container flex flex-col items-center justify-center shrink-0">
+<span class="font-label-md text-primary text-xs uppercase">Oct</span>
+<span class="font-headline-md text-primary font-bold">14</span>
+</div>
+<div>
+<h4 class="font-label-md text-primary font-bold">Sunday Service</h4>
+<p class="font-caption text-on-surface-variant">9:00 AM &amp; 11:00 AM</p>
+</div>
+</li>
+<li class="flex gap-3">
+<div class="w-12 h-12 rounded-lg bg-surface-container flex flex-col items-center justify-center shrink-0">
+<span class="font-label-md text-primary text-xs uppercase">Oct</span>
+<span class="font-headline-md text-primary font-bold">18</span>
+</div>
+<div>
+<h4 class="font-label-md text-primary font-bold">Youth Group Meetup</h4>
+<p class="font-caption text-on-surface-variant">6:30 PM</p>
+</div>
+</li>
+</ul>
+</div>
+</aside>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<nav class="md:hidden bg-surface-container-lowest dark:bg-surface-container-lowest shadow-[0_-4px_24px_rgba(4,22,46,0.06)] shadow-lg docked full-width bottom-0 rounded-t-xl fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-margin-mobile pt-stack-sm pb-safe h-[80px]">
+<button class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed relative after:content-[''] after:absolute after:-bottom-1 after:w-1 after:h-1 after:bg-secondary after:rounded-full tap-highlight-transparent active:scale-90 transition-transform w-16 h-full pb-2">
+<span class="material-symbols-outlined mb-1 text-[24px]" style="font-variation-settings: &quot;FILL&quot; 1;">home_app_logo</span>
+<span class="font-label-md text-caption">Feed</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:text-secondary transition-colors tap-highlight-transparent active:scale-90 transition-transform w-16 h-full pb-2">
+<span class="material-symbols-outlined mb-1 text-[24px]" style="font-variation-settings: &quot;FILL&quot; 0;">prayer_times</span>
+<span class="font-label-md text-caption">Prayer</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:text-secondary transition-colors tap-highlight-transparent active:scale-90 transition-transform w-16 h-full pb-2">
+<span class="material-symbols-outlined mb-1 text-[24px]" style="font-variation-settings: &quot;FILL&quot; 0;">calendar_month</span>
+<span class="font-label-md text-caption">Events</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:text-secondary transition-colors tap-highlight-transparent active:scale-90 transition-transform w-16 h-full pb-2">
+<span class="material-symbols-outlined mb-1 text-[24px]" style="font-variation-settings: 'FILL' 0;">chat_bubble</span>
+<span class="font-label-md text-caption">Chat</span>
+</button>
+
+</nav>
+
+
+</body></html>

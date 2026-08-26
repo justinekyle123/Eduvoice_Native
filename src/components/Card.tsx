@@ -16,7 +16,7 @@ export function Card({ children, title, subtitle, style }: CardProps) {
         {
           backgroundColor: colors.surfaceContainerLowest,
           borderRadius: borderRadius.lg,
-          padding: 24,
+          padding: 20,
           ...shadows.ambient,
         },
         style,
@@ -25,11 +25,11 @@ export function Card({ children, title, subtitle, style }: CardProps) {
       {title && (
         <Text
           style={{
-            fontSize: typography.headlineMd.fontSize,
-            fontWeight: typography.headlineMd.fontWeight,
+            fontSize: 24,
+            fontWeight: "500",
             color: colors.primary,
             marginBottom: 4,
-            lineHeight: typography.headlineMd.lineHeight,
+            lineHeight: 32,
           }}
         >
           {title}
@@ -38,10 +38,10 @@ export function Card({ children, title, subtitle, style }: CardProps) {
       {subtitle && (
         <Text
           style={{
-            fontSize: typography.bodyMd.fontSize,
+            fontSize: 16,
             color: colors.onSurfaceVariant,
             marginBottom: 12,
-            lineHeight: typography.bodyMd.lineHeight,
+            lineHeight: 24,
           }}
         >
           {subtitle}

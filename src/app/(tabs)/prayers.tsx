@@ -1,4 +1,4 @@
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, Pressable } from "react-native";
 import { Card } from "../../components";
 import { colors, typography, borderRadius, shadows } from "../../lib/theme";
 
@@ -98,32 +98,30 @@ export default function PrayersScreen() {
               >
                 {item.content}
               </Text>
-              <View
-                style={{
+              <Pressable
+                style={({ pressed }) => ({
                   flexDirection: "row",
                   alignItems: "center",
                   gap: 6,
-                }}
+                  backgroundColor: colors.tertiaryContainer,
+                  paddingHorizontal: 12,
+                  paddingVertical: 6,
+                  borderRadius: borderRadius.full,
+                  alignSelf: "flex-start",
+                  opacity: pressed ? 0.7 : 1,
+                })}
               >
-                <View
+                <Text style={{ fontSize: 14 }}>🙏</Text>
+                <Text
                   style={{
-                    backgroundColor: colors.secondaryContainer,
-                    paddingHorizontal: 10,
-                    paddingVertical: 4,
-                    borderRadius: borderRadius.full,
+                    fontSize: typography.caption.fontSize,
+                    color: colors.onTertiaryContainer,
+                    fontWeight: "600",
                   }}
                 >
-                  <Text
-                    style={{
-                      fontSize: typography.caption.fontSize,
-                      color: colors.onSecondaryContainer,
-                      fontWeight: "600",
-                    }}
-                  >
-                    🙏 {item.prayerCount} praying
-                  </Text>
-                </View>
-              </View>
+                  {item.prayerCount} Praying
+                </Text>
+              </Pressable>
             </View>
           </Card>
         )}

@@ -1,41 +1,90 @@
 import { Tabs } from "expo-router";
-import { Text } from "react-native";
+import { View, Text } from "react-native";
+import { colors, typography } from "../../lib/theme";
+
+function TabIcon({ emoji, label, focused }: { emoji: string; label: string; focused: boolean }) {
+  return (
+    <View style={{ alignItems: "center", justifyContent: "center", width: 64 }}>
+      <Text style={{ fontSize: 24, marginBottom: 2 }}>{emoji}</Text>
+      <Text
+        style={{
+          fontSize: 11,
+          fontWeight: focused ? "600" : "400",
+          color: focused ? colors.secondary : colors.onSurfaceVariant,
+        }}
+      >
+        {label}
+      </Text>
+      {focused && (
+        <View
+          style={{
+            width: 4,
+            height: 4,
+            borderRadius: 2,
+            backgroundColor: colors.secondary,
+            marginTop: 2,
+          }}
+        />
+      )}
+    </View>
+  );
+}
 
 export default function TabsLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: "#208AEF",
-        tabBarInactiveTintColor: "#999",
+        tabBarActiveTintColor: colors.secondary,
+        tabBarInactiveTintColor: colors.onSurfaceVariant,
         tabBarStyle: {
-          backgroundColor: "#fff",
-          borderTopWidth: 1,
-          borderTopColor: "#eee",
-          height: 88,
+          backgroundColor: colors.surfaceContainerLowest,
+          borderTopWidth: 0,
+          height: 80,
           paddingTop: 8,
+          paddingBottom: 12,
+          elevation: 0,
+          shadowColor: "#04162e",
+          shadowOffset: { width: 0, height: -4 },
+          shadowOpacity: 0.06,
+          shadowRadius: 24,
         },
-        tabBarLabelStyle: {
-          fontSize: 12,
-          fontWeight: "500",
-        },
+        tabBarLabel: () => null,
         headerShown: false,
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
-          title: "Home",
-          tabBarIcon: ({ color }) => (
-            <Text style={{ fontSize: 24 }}>🏠</Text>
+          title: "Feed",
+          tabBarIcon: ({ focused }) => (
+            <TabIcon emoji="🏠" label="Feed" focused={focused} />
           ),
         }}
       />
       <Tabs.Screen
         name="prayers"
         options={{
-          title: "Prayers",
-          tabBarIcon: ({ color }) => (
-            <Text style={{ fontSize: 24 }}>🙏</Text>
+          title: "Prayer",
+          tabBarIcon: ({ focused }) => (
+            <TabIcon emoji="🙏" label="Prayer" focused={focused} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="events"
+        options={{
+          title: "Events",
+          tabBarIcon: ({ focused }) => (
+            <TabIcon emoji="📅" label="Events" focused={focused} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="chat"
+        options={{
+          title: "Chat",
+          tabBarIcon: ({ focused }) => (
+            <TabIcon emoji="💬" label="Chat" focused={focused} />
           ),
         }}
       />
@@ -43,9 +92,10 @@ export default function TabsLayout() {
         name="profile"
         options={{
           title: "Profile",
-          tabBarIcon: ({ color }) => (
-            <Text style={{ fontSize: 24 }}>👤</Text>
+          tabBarIcon: ({ focused }) => (
+            <TabIcon emoji="👤" label="Profile" focused={focused} />
           ),
+          href: null,
         }}
       />
     </Tabs>

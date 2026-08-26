@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
 import { colors, borderRadius } from "../lib/theme";
 
 interface AvatarProps {
@@ -7,6 +7,7 @@ interface AvatarProps {
   imageUrl?: string | null;
   size?: number;
   variant?: "primary" | "secondary" | "tertiary";
+  showRing?: boolean;
 }
 
 export function Avatar({
@@ -15,6 +16,7 @@ export function Avatar({
   imageUrl,
   size = 44,
   variant = "primary",
+  showRing = false,
 }: AvatarProps) {
   const initials = `${firstName?.[0] || ""}${lastName?.[0] || ""}` || "?";
 
@@ -40,7 +42,17 @@ export function Avatar({
     }
   };
 
-  return (
+  const content = imageUrl ? (
+    <Image
+      source={{ uri: imageUrl }}
+      style={{
+        width: size,
+        height: size,
+        borderRadius: borderRadius.full,
+        backgroundColor: getBackgroundColor(),
+      }}
+    />
+  ) : (
     <View
       style={{
         width: size,
@@ -62,4 +74,24 @@ export function Avatar({
       </Text>
     </View>
   );
+
+  if (showRing) {
+    return (
+      <View
+        style={{
+          width: size + 6,
+          height: size + 6,
+          borderRadius: (size + 6) / 2,
+          borderWidth: 2,
+          borderColor: colors.secondary,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {content}
+      </View>
+    );
+  }
+
+  return content;
 }

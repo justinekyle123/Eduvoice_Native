@@ -52,7 +52,7 @@ export function Input({
           borderWidth: 1,
           borderColor: error ? colors.error : colors.outlineVariant,
           borderRadius: borderRadius.DEFAULT,
-          padding: 16,
+          padding: 14,
           fontSize: typography.bodyMd.fontSize,
           fontWeight: typography.bodyMd.fontWeight,
           color: colors.onSurface,

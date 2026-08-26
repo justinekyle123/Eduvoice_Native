@@ -69,7 +69,7 @@ export function Button({
       style={({ pressed }) => ({
         ...getStyle(),
         borderRadius: borderRadius.DEFAULT,
-        padding: 16,
+        padding: 14,
         alignItems: "center",
         justifyContent: "center",
         flexDirection: "row",

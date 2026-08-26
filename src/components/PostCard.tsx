@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, Image } from "react-native";
 import { colors, typography, borderRadius, shadows } from "../lib/theme";
 import { Avatar } from "./Avatar";
 import type { Post } from "../types/api";
@@ -8,14 +8,6 @@ interface PostCardProps {
   onReact?: (postId: string, type: string) => void;
   onPress?: (post: Post) => void;
 }
-
-const REACTIONS = [
-  { type: "amen", emoji: "🙏", label: "Amen" },
-  { type: "praise", emoji: "🙌", label: "Praise" },
-  { type: "love", emoji: "❤️", label: "Love" },
-  { type: "support", emoji: "💪", label: "Support" },
-  { type: "pray", emoji: "🤲", label: "Praying" },
-];
 
 function getTypeBadge(type: string) {
   switch (type) {
@@ -54,17 +46,17 @@ export function PostCard({ post, onReact, onPress }: PostCardProps) {
         style={{
           backgroundColor: colors.surfaceContainerLowest,
           borderRadius: borderRadius.lg,
-          padding: 16,
-          marginBottom: 16,
+          marginBottom: 12,
+          overflow: "hidden",
           ...shadows.ambient,
         }}
       >
-        {/* Header */}
+        {/* Header: Author info */}
         <View
           style={{
             flexDirection: "row",
             alignItems: "center",
-            marginBottom: 12,
+            padding: 12,
           }}
         >
           <Avatar
@@ -73,13 +65,12 @@ export function PostCard({ post, onReact, onPress }: PostCardProps) {
             imageUrl={post.authorProfileImage}
             size={40}
           />
-          <View style={{ flex: 1, marginLeft: 12 }}>
+          <View style={{ flex: 1, marginLeft: 10 }}>
             <Text
               style={{
-                fontSize: typography.labelMd.fontSize,
-                fontWeight: typography.labelMd.fontWeight,
+                fontSize: 14,
+                fontWeight: "600",
                 color: colors.primary,
-                letterSpacing: typography.labelMd.letterSpacing,
               }}
             >
               {post.authorDisplayName ||
@@ -87,116 +78,135 @@ export function PostCard({ post, onReact, onPress }: PostCardProps) {
             </Text>
             <Text
               style={{
-                fontSize: typography.caption.fontSize,
+                fontSize: 10,
                 color: colors.onSurfaceVariant,
-                marginTop: 2,
                 textTransform: "uppercase",
-                letterSpacing: 0.05,
+                letterSpacing: 0.5,
+                marginTop: 1,
               }}
             >
               {formatDate(post.createdAt)}
+              {badge && ` • ${badge.text}`}
             </Text>
           </View>
-          {badge && (
-            <View
-              style={{
-                backgroundColor: badge.color,
-                paddingHorizontal: 10,
-                paddingVertical: 4,
-                borderRadius: borderRadius.full,
-              }}
-            >
-              <Text
-                style={{
-                  color: badge.textColor,
-                  fontSize: typography.caption.fontSize,
-                  fontWeight: "600",
-                }}
-              >
-                {badge.text}
-              </Text>
-            </View>
-          )}
+          <Pressable style={{ padding: 4 }}>
+            <Text style={{ fontSize: 18, color: colors.onSurfaceVariant }}>⋮</Text>
+          </Pressable>
         </View>
 
-        {/* Content */}
-        <Text
-          style={{
-            fontSize: typography.bodyMd.fontSize,
-            color: colors.onSurface,
-            lineHeight: typography.bodyMd.lineHeight,
-            marginBottom: 16,
-          }}
-        >
-          {post.content}
-        </Text>
+        {/* Post Image */}
+        {post.imageUrl && (
+          <Image
+            source={{ uri: post.imageUrl }}
+            style={{
+              width: "100%",
+              aspectRatio: 1,
+              backgroundColor: colors.surfaceContainer,
+            }}
+            resizeMode="cover"
+          />
+        )}
 
-        {/* Reactions bar */}
+        {/* Action Bar: Like, Comment, Send, Bookmark */}
         <View
           style={{
             flexDirection: "row",
-            gap: 8,
-            marginBottom: 12,
+            alignItems: "center",
+            paddingHorizontal: 12,
+            paddingTop: 10,
+            paddingBottom: 4,
           }}
         >
-          {REACTIONS.map((reaction) => (
-            <Pressable
-              key={reaction.type}
-              onPress={() => onReact?.(post.id, reaction.type)}
-              style={({ pressed }) => ({
-                flexDirection: "row",
-                alignItems: "center",
-                gap: 4,
-                paddingHorizontal: 12,
-                paddingVertical: 8,
-                borderRadius: borderRadius.full,
-                backgroundColor: colors.surfaceContainer,
-                opacity: pressed ? 0.7 : 1,
-              })}
-            >
-              <Text style={{ fontSize: 16 }}>{reaction.emoji}</Text>
-              <Text
-                style={{
-                  fontSize: typography.caption.fontSize,
-                  color: colors.onSurfaceVariant,
-                  fontWeight: "500",
-                }}
-              >
-                {reaction.label}
-              </Text>
-            </Pressable>
-          ))}
-        </View>
-
-        {/* Stats */}
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            paddingTop: 12,
-            borderTopWidth: 1,
-            borderTopColor: colors.outlineVariant,
-          }}
-        >
-          {post.prayerCount > 0 && (
-            <Text
-              style={{
-                fontSize: typography.caption.fontSize,
-                color: colors.onSurfaceVariant,
-              }}
-            >
-              🙏 {post.prayerCount} praying
+          <Pressable
+            onPress={() => onReact?.(post.id, "amen")}
+            style={({ pressed }) => ({
+              marginRight: 16,
+              opacity: pressed ? 0.6 : 1,
+            })}
+          >
+            <Text style={{ fontSize: 26, color: colors.onSurfaceVariant }}>
+              ♡
             </Text>
-          )}
+          </Pressable>
+          <Pressable
+            style={({ pressed }) => ({
+              marginRight: 16,
+              opacity: pressed ? 0.6 : 1,
+            })}
+          >
+            <Text style={{ fontSize: 24, color: colors.onSurfaceVariant }}>
+              💬
+            </Text>
+          </Pressable>
+          <Pressable
+            style={({ pressed }) => ({
+              marginRight: 16,
+              opacity: pressed ? 0.6 : 1,
+            })}
+          >
+            <Text style={{ fontSize: 22, color: colors.onSurfaceVariant }}>
+              ↗
+            </Text>
+          </Pressable>
+          <View style={{ flex: 1 }} />
+          <Pressable
+            style={({ pressed }) => ({
+              opacity: pressed ? 0.6 : 1,
+            })}
+          >
+            <Text style={{ fontSize: 22, color: colors.onSurfaceVariant }}>
+              🔖
+            </Text>
+          </Pressable>
+        </View>
+
+        {/* Reaction Count */}
+        {post.prayerCount > 0 && (
           <Text
             style={{
-              fontSize: typography.caption.fontSize,
-              color: colors.onSurfaceVariant,
+              fontSize: 14,
+              fontWeight: "600",
+              color: colors.primary,
+              paddingHorizontal: 12,
+              paddingBottom: 4,
             }}
           >
-            💬 {post.commentCount} comments
+            {post.prayerCount} Amens
+          </Text>
+        )}
+
+        {/* Content */}
+        <View style={{ paddingHorizontal: 12, paddingBottom: 4 }}>
+          <Text
+            style={{
+              fontSize: 16,
+              color: colors.onSurface,
+              lineHeight: 24,
+            }}
+          >
+            {post.content}
           </Text>
         </View>
+
+        {/* View Comments */}
+        {post.commentCount > 0 && (
+          <Pressable style={{ paddingHorizontal: 12, paddingBottom: 12 }}>
+            <Text
+              style={{
+                fontSize: 12,
+                color: colors.onSurfaceVariant,
+                fontWeight: "400",
+              }}
+            >
+              View all {post.commentCount} comments
+            </Text>
+          </Pressable>
+        )}
+
+        {/* Bottom spacer if no comments */}
+        {post.commentCount === 0 && (
+          <View style={{ height: 8 }} />
+        )}
       </View>
     </Pressable>
   );

@@ -6,12 +6,161 @@ import {
   TouchableOpacity,
   RefreshControl,
   ActivityIndicator,
+  ScrollView,
+  Image,
 } from "react-native";
 import { useAuth } from "../../lib/AuthContext";
 import { useUserFeed, useCurrentUser, useReactToPost } from "../../hooks";
 import { PostCard, Avatar, Button } from "../../components";
 import { colors, typography, borderRadius, shadows } from "../../lib/theme";
 import type { Post } from "../../types/api";
+
+// Stories bar data (placeholder)
+const STORIES = [
+  { id: "me", name: "Your Story", isOwn: true },
+  { id: "1", name: "Sarah J." },
+  { id: "2", name: "Marcus T." },
+  { id: "3", name: "David P." },
+  { id: "4", name: "Maria G." },
+];
+
+function StoryItem({ name, isOwn }: { name: string; isOwn?: boolean }) {
+  return (
+    <View style={{ alignItems: "center", width: 72 }}>
+      <View
+        style={{
+          width: 64,
+          height: 64,
+          borderRadius: 32,
+          padding: 2,
+          borderWidth: 2,
+          borderColor: colors.secondary,
+          marginBottom: 4,
+        }}
+      >
+        <View
+          style={{
+            width: "100%",
+            height: "100%",
+            borderRadius: 30,
+            backgroundColor: isOwn ? colors.surfaceContainerHigh : colors.tertiaryContainer,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text
+            style={{
+              color: isOwn ? colors.onSurfaceVariant : colors.onTertiaryContainer,
+              fontSize: 18,
+              fontWeight: "700",
+            }}
+          >
+            {isOwn ? "+" : name[0]}
+          </Text>
+        </View>
+      </View>
+      <Text
+        style={{
+          fontSize: 11,
+          color: colors.onSurfaceVariant,
+          textAlign: "center",
+        }}
+        numberOfLines={1}
+      >
+        {name}
+      </Text>
+    </View>
+  );
+}
+
+function ScriptureCard() {
+  return (
+    <View
+      style={{
+        backgroundColor: colors.surfaceContainerLowest,
+        borderRadius: borderRadius.lg,
+        overflow: "hidden",
+        marginHorizontal: 16,
+        marginBottom: 16,
+        ...shadows.ambient,
+      }}
+    >
+      {/* Scripture Content */}
+      <View
+        style={{
+          height: 256,
+          backgroundColor: colors.primaryContainer,
+          justifyContent: "center",
+          alignItems: "center",
+          padding: 32,
+        }}
+      >
+        <View
+          style={{
+            backgroundColor: colors.surfaceContainerLowest + "e6",
+            paddingHorizontal: 12,
+            paddingVertical: 4,
+            borderRadius: borderRadius.full,
+            marginBottom: 20,
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 12,
+              fontWeight: "600",
+              color: colors.secondary,
+              textTransform: "uppercase",
+              letterSpacing: 0.1,
+            }}
+          >
+            Scripture of the Day
+          </Text>
+        </View>
+        <Text
+          style={{
+            fontSize: 20,
+            fontWeight: "500",
+            color: colors.onPrimaryContainer,
+            textAlign: "center",
+            fontStyle: "italic",
+            lineHeight: 30,
+            marginBottom: 16,
+          }}
+        >
+          &ldquo;The Lord is my shepherd, I lack nothing. He makes me lie down in green pastures, he leads me beside quiet waters...&rdquo;
+        </Text>
+        <Text
+          style={{
+            fontSize: 16,
+            color: colors.onPrimaryContainer,
+            opacity: 0.8,
+          }}
+        >
+          — Psalm 23:1-2
+        </Text>
+      </View>
+      {/* Footer */}
+      <View
+        style={{
+          padding: 12,
+          backgroundColor: colors.surfaceContainerLowest,
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+          borderTopWidth: 1,
+          borderTopColor: colors.outlineVariant + "80",
+        }}
+      >
+        <Text style={{ fontSize: 12, color: colors.onSurfaceVariant }}>
+          Shared with love by Pastor David
+        </Text>
+        <TouchableOpacity>
+          <Text style={{ fontSize: 20, color: colors.onSurfaceVariant }}>↗</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+}
 
 export default function HomeScreen() {
   const { signOut } = useAuth();
@@ -59,101 +208,34 @@ export default function HomeScreen() {
         style={{
           backgroundColor: colors.surfaceContainerLowest,
           paddingTop: 60,
-          paddingBottom: 16,
-          paddingHorizontal: 20,
-          borderBottomWidth: 1,
-          borderBottomColor: colors.outlineVariant,
+          paddingBottom: 12,
+          paddingHorizontal: 16,
           flexDirection: "row",
           justifyContent: "space-between",
           alignItems: "center",
         }}
       >
-        <Text
-          style={{
-            fontSize: typography.headlineLgMobile.fontSize,
-            fontWeight: typography.headlineLgMobile.fontWeight,
-            color: colors.primary,
-            lineHeight: typography.headlineLgMobile.lineHeight,
-          }}
-        >
-          Sanctuary
-        </Text>
         <View style={{ flexDirection: "row", alignItems: "center", gap: 12 }}>
           <Avatar
             firstName={user.firstName}
             lastName={user.lastName}
             imageUrl={user.profileImageUrl}
-            size={36}
+            size={40}
           />
-          <TouchableOpacity onPress={() => signOut()}>
-            <Text style={{ fontSize: typography.labelMd.fontSize, color: colors.secondary, fontWeight: "600" }}>
-              Sign Out
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      {/* Scripture of the Day Card */}
-      <View
-        style={{
-          marginHorizontal: 16,
-          marginTop: 16,
-          borderRadius: borderRadius.lg,
-          overflow: "hidden",
-          ...shadows.ambient,
-        }}
-      >
-        <View
-          style={{
-            backgroundColor: colors.primaryContainer,
-            padding: 24,
-            alignItems: "center",
-          }}
-        >
-          <View
-            style={{
-              backgroundColor: colors.surfaceContainerLowest,
-              paddingHorizontal: 12,
-              paddingVertical: 4,
-              borderRadius: borderRadius.full,
-              marginBottom: 16,
-            }}
-          >
-            <Text
-              style={{
-                fontSize: typography.caption.fontSize,
-                fontWeight: "600",
-                color: colors.secondary,
-                textTransform: "uppercase",
-                letterSpacing: 0.1,
-              }}
-            >
-              Scripture of the Day
-            </Text>
-          </View>
           <Text
             style={{
-              fontSize: typography.headlineLgMobile.fontSize,
-              fontWeight: typography.headlineLgMobile.fontWeight,
-              color: colors.onPrimaryContainer,
-              textAlign: "center",
-              fontStyle: "italic",
-              lineHeight: typography.headlineLgMobile.lineHeight,
-              marginBottom: 12,
+              fontSize: 24,
+              fontWeight: "700",
+              color: colors.primary,
+              letterSpacing: -0.5,
             }}
           >
-            "The Lord is my shepherd, I lack nothing..."
-          </Text>
-          <Text
-            style={{
-              fontSize: typography.bodyMd.fontSize,
-              color: colors.onPrimaryContainer,
-              opacity: 0.8,
-            }}
-          >
-            — Psalm 23:1-2
+            Sanctuary
           </Text>
         </View>
+        <TouchableOpacity onPress={() => signOut()} style={{ padding: 8 }}>
+          <Text style={{ fontSize: 20, color: colors.primary }}>☰</Text>
+        </TouchableOpacity>
       </View>
 
       {/* Feed */}
@@ -175,7 +257,32 @@ export default function HomeScreen() {
           renderItem={({ item }) => (
             <PostCard post={item} onReact={handleReact} />
           )}
-          contentContainerStyle={{ padding: 16 }}
+          ListHeaderComponent={
+            <>
+              {/* Stories Bar */}
+              <View
+                style={{
+                  backgroundColor: colors.surfaceContainerLowest,
+                  paddingVertical: 12,
+                  marginBottom: 8,
+                }}
+              >
+                <ScrollView
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  contentContainerStyle={{ paddingHorizontal: 16, gap: 8 }}
+                >
+                  {STORIES.map((story) => (
+                    <StoryItem key={story.id} name={story.name} isOwn={story.isOwn} />
+                  ))}
+                </ScrollView>
+              </View>
+
+              {/* Scripture of the Day */}
+              <ScriptureCard />
+            </>
+          }
+          contentContainerStyle={{ paddingBottom: 16 }}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }

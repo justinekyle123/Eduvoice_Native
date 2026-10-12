@@ -1,56 +1,79 @@
-# Welcome to your Expo app 👋
+# Eduvoice
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A voice-first learning assistant: talk to Eduvoice, get answers you can remember.
+Built with Expo (SDK 57), Expo Router, NativeWind and TypeScript.
 
-## Get started
-
-1. Install dependencies
-
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## Getting started
 
 ```bash
-npm run reset-project
+npm install
+npx expo start        # or: npm run ios / npm run android / npm run web
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Project structure
 
-### Other setup steps
+Feature-based: routing lives in `src/app`, everything a feature needs lives
+together in `src/features/<feature>`.
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+```
+src/
+├── app/                    # Expo Router routes only (thin re-exports)
+│   ├── _layout.tsx         # fonts, providers, modal + stack config
+│   ├── index.tsx           # boot gate → onboarding or tabs
+│   ├── (onboarding)/       # welcome → personalize → preparing
+│   ├── (tabs)/             # home, chat, library, profile (custom tab bar)
+│   ├── voice.tsx           # full-screen voice mode
+│   ├── conversation/[id].tsx
+│   └── +not-found.tsx
+├── components/             # cross-feature building blocks
+│   ├── animation/          # FadeInUp, FloatingView, PulseRing
+│   ├── icons/              # Lucide registry + <Icon />
+│   ├── navigation/         # floating tab bar
+│   └── ui/                 # AppText, Button, Surface, Chip, Screen, ...
+├── features/
+│   ├── onboarding/         # interests, robot mascot, first-run flow
+│   │   ├── components/  constants.ts  hooks/  screens/  storage.ts  types.ts
+│   ├── voice/              # session state machine + voice mode UI
+│   │   └── components/  constants.ts  hooks/  screens/  services/  types.ts
+│   ├── chat/               # conversations, composer, learning modes
+│   │   └── components/  constants.ts  data/  hooks/  screens/  services/  store/  types.ts
+│   ├── home/               # greeting, voice card, plan, streak, composer
+│   ├── library/            # saved notes, audio, summaries, quizzes
+│   └── profile/            # identity, focus areas, persisted preferences
+├── lib/                    # framework-agnostic helpers
+│   ├── api/                # fetch client (ready for the backend)
+│   ├── storage.ts          # typed AsyncStorage wrapper
+│   ├── config.ts           # env-driven app config
+│   └── utils/              # cn, format, array, id
+├── providers/              # AppProviders (safe area, gestures, stores)
+└── theme/                  # colors, gradients, typography, layout tokens
+```
 
-## Learn more
+### Conventions
 
-To learn more about developing your project with Expo, look at the following resources:
+- **Routes are thin.** Files in `src/app` only re-export a screen from
+  `src/features`, so navigation stays declarative and features stay portable.
+- **Features own their state.** `ChatProvider` (conversations) and
+  `OnboardingProvider` (first-run profile) are mounted once in
+  `src/providers/AppProviders.tsx`.
+- **Design tokens, not magic numbers.** Colours, radii, shadows and gradients
+  come from `src/theme` and `tailwind.config.js` (NativeWind utilities such as
+  `bg-white/55`, `rounded-card`, `text-ink`).
+- **Typography via `AppText`.** `variant` picks a Manrope weight/size,
+  `tone` picks a colour, `className` handles layout.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## What is stubbed
 
-## Join the community
+Everything is wired end to end, but three integration points are intentionally
+local stand-ins:
 
-Join our community of developers creating universal apps.
+| Area | File | Swap for |
+| --- | --- | --- |
+| Speech recognition | `src/features/voice/services/voice-engine.ts` | `expo-audio` recording + on-device/served speech-to-text |
+| Assistant replies | `src/features/chat/services/chat-service.ts` | `api.post("/assistant", ...)` |
+| File upload / sign out | composer menu, profile rows | document picker + auth |
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+The voice UI runs on a scripted engine (`createStubVoiceEngine`) so the full
+loop — listening → transcript → conversation — can be reviewed without
+microphone permissions. Replacing `voiceEngine` is a one-line change; the UI
+only depends on the `VoiceEngine` interface.

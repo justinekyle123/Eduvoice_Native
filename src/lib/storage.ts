@@ -1,44 +1,46 @@
-import { Platform } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-// Cross-platform storage: localStorage on web, SecureStore on native
-let SecureStore: any = null;
+/**
+ * Thin, fail-safe wrapper around AsyncStorage.
+ *
+ * Reads never throw: a corrupt or missing value resolves to the fallback so a
+ * bad cache can never block app startup.
+ */
+const NAMESPACE = "eduvoice";
 
-if (Platform.OS !== "web") {
+export const storageKeys = {
+  onboarding: "onboarding/profile",
+  conversations: "chat/conversations",
+  voiceSettings: "voice/settings",
+} as const;
+
+export type StorageKey = (typeof storageKeys)[keyof typeof storageKeys];
+
+const withNamespace = (key: StorageKey) => `${NAMESPACE}:${key}`;
+
+export async function readJson<T>(key: StorageKey, fallback: T): Promise<T> {
   try {
-    SecureStore = require("expo-secure-store");
-  } catch {
-    SecureStore = null;
+    const raw = await AsyncStorage.getItem(withNamespace(key));
+    if (!raw) return fallback;
+    return JSON.parse(raw) as T;
+  } catch (error) {
+    console.warn(`[storage] failed to read "${key}"`, error);
+    return fallback;
   }
 }
 
-export const storage = {
-  async getItem(key: string): Promise<string | null> {
-    if (Platform.OS === "web") {
-      return localStorage.getItem(key);
-    }
-    if (SecureStore) {
-      return SecureStore.getItemAsync(key);
-    }
-    return null;
-  },
+export async function writeJson<T>(key: StorageKey, value: T): Promise<void> {
+  try {
+    await AsyncStorage.setItem(withNamespace(key), JSON.stringify(value));
+  } catch (error) {
+    console.warn(`[storage] failed to write "${key}"`, error);
+  }
+}
 
-  async setItem(key: string, value: string): Promise<void> {
-    if (Platform.OS === "web") {
-      localStorage.setItem(key, value);
-      return;
-    }
-    if (SecureStore) {
-      await SecureStore.setItemAsync(key, value);
-    }
-  },
-
-  async removeItem(key: string): Promise<void> {
-    if (Platform.OS === "web") {
-      localStorage.removeItem(key);
-      return;
-    }
-    if (SecureStore) {
-      await SecureStore.deleteItemAsync(key);
-    }
-  },
-};
+export async function removeKey(key: StorageKey): Promise<void> {
+  try {
+    await AsyncStorage.removeItem(withNamespace(key));
+  } catch (error) {
+    console.warn(`[storage] failed to remove "${key}"`, error);
+  }
+}

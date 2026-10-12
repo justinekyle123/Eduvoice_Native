@@ -1,14 +1,16 @@
 {
   "expo": {
-    "name": "ReadyAlert",
-    "slug": "ReadyAlert",
+    "name": "Eduvoice",
+    "slug": "eduvoice",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "readyalert",
-    "userInterfaceStyle": "automatic",
+    "scheme": "eduvoice",
+    "userInterfaceStyle": "light",
     "ios": {
-      "icon": "./assets/expo.icon"
+      "icon": "./assets/expo.icon",
+      "bundleIdentifier": "com.eduvoice.app",
+      "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
@@ -18,7 +20,7 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "package": "com.anonymous.ReadyAlert"
+      "package": "com.eduvoice.app"
     },
     "web": {
       "output": "static",
@@ -30,7 +32,7 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#208AEF",
+          "backgroundColor": "#eaf5ff",
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 76
         }

@@ -1,45 +1,65 @@
-import { useEffect } from "react";
-import { Slot, useRouter, useSegments } from "expo-router";
+import {
+  Manrope_400Regular,
+  Manrope_500Medium,
+  Manrope_600SemiBold,
+  Manrope_700Bold,
+  Manrope_800ExtraBold,
+  useFonts,
+} from "@expo-google-fonts/manrope";
+import { Stack } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
-import { View, Text, ActivityIndicator } from "react-native";
-import { AuthProvider, useAuth } from "../lib/AuthContext";
+import { useEffect } from "react";
+import { Platform } from "react-native";
 
-function RootLayoutNav() {
-  const { user, loading } = useAuth();
-  const segments = useSegments();
-  const router = useRouter();
+import { AppProviders } from "@/providers";
+import { colors } from "@/theme";
+
+import "../../global.css";
+
+void SplashScreen.preventAutoHideAsync();
+
+/** Root navigator: onboarding, the tab shell, voice mode and conversation threads. */
+export default function RootLayout() {
+  const [fontsLoaded, fontError] = useFonts({
+    Manrope_400Regular,
+    Manrope_500Medium,
+    Manrope_600SemiBold,
+    Manrope_700Bold,
+    Manrope_800ExtraBold,
+  });
+
+  const fontsReady = fontsLoaded || Boolean(fontError);
 
   useEffect(() => {
-    if (loading) return;
-
-    const inAuthGroup = segments[0] === "(auth)";
-
-    if (!user && !inAuthGroup) {
-      router.replace("/(auth)/sign-in");
-    } else if (user && inAuthGroup) {
-      router.replace("/(tabs)");
+    if (fontsReady) {
+      void SplashScreen.hideAsync();
     }
-  }, [user, loading]);
+  }, [fontsReady]);
 
-  if (loading) {
-    return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "#fbf9f5" }}>
-        <Text style={{ fontSize: 32, fontWeight: "700", color: "#04162e", letterSpacing: -0.5 }}>
-          Sanctuary
-        </Text>
-        <ActivityIndicator size="small" color="#775a19" style={{ marginTop: 16 }} />
-      </View>
-    );
+  // Native holds the splash until Manrope is ready so the first frame never
+  // flashes a fallback font. The web build renders straight away, which also
+  // keeps the static export's HTML meaningful.
+  if (!fontsReady && Platform.OS !== "web") {
+    return null;
   }
 
-  return <Slot />;
-}
-
-export default function RootLayout() {
   return (
-    <AuthProvider>
-      <RootLayoutNav />
-      <StatusBar style="auto" />
-    </AuthProvider>
+    <AppProviders>
+      <StatusBar style="dark" />
+      <Stack
+        screenOptions={{
+          headerShown: false,
+          contentStyle: { backgroundColor: colors.shell.base },
+        }}
+      >
+        <Stack.Screen name="index" />
+        <Stack.Screen name="(onboarding)" />
+        <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="voice" options={{ presentation: "fullScreenModal", animation: "fade" }} />
+        <Stack.Screen name="conversation/[id]" />
+        <Stack.Screen name="+not-found" options={{ headerShown: true, title: "Not found" }} />
+      </Stack>
+    </AppProviders>
   );
 }

@@ -2,29 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * Eduvoice design tokens.
+ * Tailwind/NativeWind tokens live in tailwind.config.js; the values below only
+ * back the web build (fonts + the soft blue/lavender canvas from the design).
+ */
 :root {
-  /* Sanctuary Design System Tokens */
-  --font-display: 'Source Serif 4', Georgia, 'Times New Roman', serif;
-  --font-body: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-caption: 'Open Sans', -apple-system, sans-serif;
+  --font-sans: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
-  /* Colors */
-  --color-background: #fbf9f5;
-  --color-surface: #fbf9f5;
-  --color-surface-container: #efeeea;
-  --color-surface-container-low: #f5f3ef;
-  --color-surface-container-high: #eae8e4;
-  --color-surface-container-lowest: #ffffff;
-  --color-primary: #04162e;
-  --color-on-primary: #ffffff;
-  --color-primary-container: #1a2b44;
-  --color-secondary: #775a19;
-  --color-on-secondary: #ffffff;
-  --color-secondary-container: #fed488;
-  --color-tertiary-container: #002f3f;
-  --color-on-surface: #1b1c1a;
-  --color-on-surface-variant: #44474d;
-  --color-outline: #75777e;
-  --color-outline-variant: #c5c6ce;
-  --color-error: #ba1a1a;
+  --color-shell: #e8f3ff;
+  --color-shell-soft: #f8faff;
+  --color-shell-warm: #f5edf6;
+  --color-ink: #121a29;
+  --color-ink-strong: #1d2635;
+  --color-muted: #6b7487;
+  --color-accent: #4f91e9;
+  --color-accent-deep: #397fe4;
+  --color-navy: #172131;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  font-family: var(--font-sans);
+  background-color: var(--color-shell);
+  color: var(--color-ink);
 }
